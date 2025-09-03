@@ -42,6 +42,7 @@
           v-for="note in notes"
           :key="note.id"
           :note="note"
+          class="animate-fade-in"
           @delete="deleteNote"
           @checkout="handleCheckout"
         />
@@ -107,60 +108,20 @@ onMounted(fetchNotes)
 </script>
 
 <style scoped>
-/* 🌌 Background pan animation */
-@keyframes pan {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
-}
-.animate-pan {
-  animation: pan 60s linear infinite;
-}
+@keyframes pan { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+.animate-pan { animation: pan 60s linear infinite; }
 
-/* ✨ Fade-in effect for names */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
-  opacity: 0;
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
+.animate-fade-in { animation: fadeIn 1s ease-out forwards; opacity:0; }
 
-/* 🌠 Shooting stars */
 .star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  opacity: 0.8;
-  border-radius: 100%;
-  animation: shooting-star 6s linear infinite;
+  position: absolute; width: 2px; height: 2px; background: rgb(0, 0, 0); opacity: 0.8; border-radius: 100%; animation: shooting-star 6s linear infinite;
 }
-.star:nth-child(odd) {
-  animation-delay: 2s;
-}
-.star:nth-child(even) {
-  animation-delay: 4s;
-}
+.star:nth-child(odd) { animation-delay: 2s; }
+.star:nth-child(even) { animation-delay: 4s; }
 
 @keyframes shooting-star {
-  0% {
-    transform: translateX(0) translateY(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(600px) translateY(300px) scale(0.5);
-    opacity: 0;
-  }
+  0% { transform: translateX(0) translateY(0) scale(1); opacity:1;}
+  100% { transform: translateX(600px) translateY(300px) scale(0.5); opacity:0;}
 }
 </style>

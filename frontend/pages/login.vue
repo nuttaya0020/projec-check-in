@@ -109,7 +109,7 @@ const handleLogin = async () => {
   position: absolute;
   width: 2px;
   height: 2px;
-  background: white;
+  background: rgb(0, 0, 0);
   opacity: 0.8;
   border-radius: 100%;
   animation: shooting-star 6s linear infinite;
