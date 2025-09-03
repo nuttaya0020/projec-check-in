@@ -51,7 +51,7 @@ const router = useRouter()
 const handleLogin = async () => {
   errorMsg.value = ''
   try {
-    const res = await axios.post('http://localhost:5000/api/login', {
+    const res = await axios.post('https://api-check-in.loeitech.org/api/login', {
       username: username.value,
       password: password.value
     })
