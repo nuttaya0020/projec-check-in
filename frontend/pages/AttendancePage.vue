@@ -23,7 +23,7 @@ const markAttendance = async (type) => {
   try {
     await axios.post(
       'https://api-check-in.loeitech.org/api/attendance',
-      { type }, // type: 'in' or 'out'
+      { type }, // type: 'in' or 'out sssss'
       {
         headers: {
           Authorization: `Bearer ${token}`,
