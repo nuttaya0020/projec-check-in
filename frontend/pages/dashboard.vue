@@ -49,7 +49,7 @@ const notes = ref([])
 
 const fetchNotes = async () => {
   const token = localStorage.getItem('token')
-  const res = await axios.get('http://api-check-in.loeitech.org/api/notes', {
+  const res = await axios.get('https://api-check-in.loeitech.org/api/notes', {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -62,7 +62,7 @@ const createNote = async () => {
   const currentTime = new Date().toLocaleString() // เช่น "25/6/2025, 09:12:34"
 
   try {
-    await axios.post('http://localhost:5000/api/notes', {
+    await axios.post('https://api-check-in.loeitech.org/api/notes', {
       title: title.value,
       content: currentTime
     }, {
@@ -79,7 +79,7 @@ const createNote = async () => {
 
 const deleteNote = async (id) => {
   const token = localStorage.getItem('token')
-  await axios.delete(`http://localhost:5000/api/notes/${id}`, {
+  await axios.delete(`https://api-check-in.loeitech.org/api/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -90,7 +90,7 @@ const deleteNote = async (id) => {
 async function handleCheckout({ id, checkout }) {
   const token = localStorage.getItem('token')
   try {
-    await axios.patch(`http://localhost:5000/api/notes/${id}/checkout`, {
+    await axios.patch(`https://api-check-in.loeitech.org/api/notes/${id}/checkout`, {
       checkout
     }, {
       headers: {

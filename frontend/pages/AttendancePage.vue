@@ -7,7 +7,7 @@ const attendanceLogs = ref([])
 const fetchLogs = async () => {
   const token = localStorage.getItem('token')
   try {
-    const res = await axios.get('http://localhost:5000/api/attendance', {
+    const res = await axios.get('https://api-check-in.loeitech.org/api/attendance', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -22,7 +22,7 @@ const markAttendance = async (type) => {
   const token = localStorage.getItem('token')
   try {
     await axios.post(
-      'http://localhost:5000/api/attendance',
+      'https://api-check-in.loeitech.org/api/attendance',
       { type }, // type: 'in' or 'out'
       {
         headers: {
