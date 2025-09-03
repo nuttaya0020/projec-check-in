@@ -48,7 +48,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd ~/007-daily-notes
+          cd ~/check_time
           docker pull pyth1os/check_time-backend:latest
           docker pull pyth1os/check_time-frontend:latest
           docker compose down
