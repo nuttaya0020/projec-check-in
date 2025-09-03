@@ -4,14 +4,16 @@
       <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">ระบบลงเวลา</h1>
 
     <div class="flex gap-2 mb-6">
-    <input
-      v-model="title"
-      placeholder="กรอกชื่อพนักงาน..."
-      class="flex-1 px-4 py-2 border rounded-xl shadow-sm
-             transition-colors duration-300
-             bg-white focus:bg-sky-100
-             text-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-300"
-             />
+   <input
+        v-model="title"
+        placeholder="กรอกชื่อพนักงาน..."
+        class="flex-1 px-4 py-2 border rounded-xl shadow-sm
+              transition-colors duration-300
+              bg-white focus:bg-sky-100
+              text-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-300"
+        @keyup.enter="createNote"
+        />
+
         <button
           @click="createNote"
           class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl shadow-md transition hover:scale-105 transform transition duration-300

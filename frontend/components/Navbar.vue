@@ -6,6 +6,7 @@
     <div class="space-x-4">
       <NuxtLink to="/login">Login</NuxtLink>
       <NuxtLink to="/dashboard">MyTime</NuxtLink>
+      <NuxtLink to="/about">Made By</NuxtLink>
     </div>
   </nav>
 </template>
