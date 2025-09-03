@@ -1,4 +1,4 @@
-# ✅ ใช้เฉพาะ Flask เท่านั้นOXOX
+# ✅ ใช้เฉพาะ Flask เท่านั้นOX
 from flask import Blueprint, request, jsonify
 from models import Attendance
 from database import get_db
