@@ -1,35 +1,46 @@
 <template>
-  <div class="min-h-screen relative overflow-hidden flex items-center justify-center p-6 text-white">
-    <!-- Galaxy Background -->
-    <div class="absolute inset-0 bg-cover bg-center animate-pan z-0 opacity-70"
-      style="background-image: url('https://images.unsplash.com/photo-1581322332640-e2a2f9e90284?auto=format&fit=crop&w=1600&q=80');">
-    </div>
+  <div class="min-h-screen bg-gradient-to-br from-sky-100 to-white p-6">
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">ระบบลงเวลา</h1>
 
-    <!-- Shooting Stars -->
-    <div class="absolute inset-0 z-10 pointer-events-none">
-      <div class="star" v-for="i in 15" :key="i" />
-    </div>
+    <div class="flex gap-2 mb-6">
+   <input
+        v-model="title"
+        placeholder="กรอกชื่อพนักงาน..."
+        class="flex-1 px-4 py-2 border rounded-xl shadow-sm
+              transition-colors duration-300
+              bg-white focus:bg-sky-100
+              text-gray-800 focus:outline-none focus:ring-2 focus:ring-sky-300"
+        @keyup.enter="createNote"
+        />
 
-    <!-- Glass Content Box -->
-    <div class="relative z-20 max-w-3xl w-full bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-8 border border-white/20">
-      <h1 class="text-3xl font-bold mb-6 text-center drop-shadow-lg">ระบบลงเวลา</h1>
-
-      <div class="flex gap-2 mb-6">
-        <input v-model="title" placeholder="กรอกชื่อพนักงาน..." class="input-glass" @keyup.enter="createNote"/>
-        <button @click="createNote"
-          class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-xl shadow-md hover:scale-105 transform transition duration-300">
+        <button
+          @click="createNote"
+          class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl shadow-md transition hover:scale-105 transform transition duration-300
+"
+        >
           ลงเวลา
         </button>
       </div>
 
-      <div v-if="notes.length===0" class="text-center text-gray-200 italic">ยังไม่มีการลงเวลา</div>
+      <div v-if="notes.length === 0" class="text-center text-gray-500 italic">
+        ยังไม่มีการลงเวลา
+      </div>
 
       <div class="space-y-4">
-        <NoteCard v-for="note in notes" :key="note.id" :note="note" class="animate-fade-in" @delete="deleteNote" @checkout="handleCheckout"/>
+        <NoteCard
+          v-for="note in notes"
+          :key="note.id"
+          :note="note"
+          @delete="deleteNote"
+          @checkout="handleCheckout"
+        />
       </div>
     </div>
   </div>
 </template>
+
+
 
 <script setup>
 import axios from 'axios'
@@ -40,33 +51,63 @@ const notes = ref([])
 
 const fetchNotes = async () => {
   const token = localStorage.getItem('token')
-  const res = await axios.get('https://api-check-in.loeitech.org/api/notes', { headers: { Authorization: `Bearer ${token}` } })
+  const res = await axios.get('https://api-check-in.loeitech.org/api/notes', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
   notes.value = res.data
 }
 
 const createNote = async () => {
   const token = localStorage.getItem('token')
-  const currentTime = new Date().toLocaleString()
+  const currentTime = new Date().toLocaleString() // เช่น "25/6/2025, 09:12:34"
+
   try {
-    await axios.post('https://api-check-in.loeitech.org/api/notes', { title: title.value, content: currentTime }, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.post('https://api-check-in.loeitech.org/api/notes', {
+      title: title.value,
+      content: currentTime
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
     title.value = ''
     fetchNotes()
-  } catch(e) { console.error(e) }
+  } catch (e) {
+    console.error('Create note failed:', e)
+  }
 }
 
 const deleteNote = async (id) => {
   const token = localStorage.getItem('token')
-  await axios.delete(`https://api-check-in.loeitech.org/api/notes/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+  await axios.delete(`https://api-check-in.loeitech.org/api/notes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
   fetchNotes()
 }
 
 async function handleCheckout({ id, checkout }) {
   const token = localStorage.getItem('token')
   try {
-    await axios.patch(`https://api-check-in.loeitech.org/api/notes/${id}/checkout`, { checkout }, { headers: { Authorization: `Bearer ${token}` } })
-    const note = notes.value.find(n=>n.id===id)
-    if(note) note.checkout=checkout
-  } catch(e){ console.error(e) }
+    await axios.patch(`https://api-check-in.loeitech.org/api/notes/${id}/checkout`, {
+      checkout
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    // ✅ อัปเดตเฉพาะโน้ตนั้น
+    const note = notes.value.find(n => n.id === id)
+    if (note) {
+      note.checkout = checkout
+    }
+  } catch (e) {
+    console.error('Checkout update failed:', e)
+  }
 }
 
 onMounted(fetchNotes)
