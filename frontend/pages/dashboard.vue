@@ -49,7 +49,7 @@ const notes = ref([])
 
 const fetchNotes = async () => {
   const token = localStorage.getItem('token')
-  const res = await axios.get('http://localhost:5000/api/notes', {
+  const res = await axios.get('http://api-check-in.loeitech.org/api/notes', {
     headers: {
       Authorization: `Bearer ${token}`
     }
