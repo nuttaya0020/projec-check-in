@@ -16,7 +16,7 @@ RUN npm install
 # คัดลอกไฟล์โปรเจกต์
 COPY . .
 
-# Build Nuxt project (จะอ่านค่า .env ที่เราสร้าง)
+# Build Nuxt project (จะอ่านค่า .env ที่เราสร้าง)asfasf
 RUN npm run build
 
 EXPOSE 3000
